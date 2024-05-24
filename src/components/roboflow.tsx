@@ -4,7 +4,8 @@ import * as React from "react";
 import Webcam from "react-webcam";
 
 const PUBLISHABLE_ROBOFLOW_API_KEY = "rf_BK8M3fRL4HghorGPIF3Xos6TtlB2";
-const PROJECT_URL = "https://universe.roboflow.com/cuevaio/barranco-movement";
+
+const MODEL_NAME = "barranco-movement";
 const MODEL_VERSION = "3";
 
 export const Roboflow = () => {
@@ -64,7 +65,7 @@ export const Roboflow = () => {
         publishable_key: PUBLISHABLE_ROBOFLOW_API_KEY,
       })
       .load({
-        model: PROJECT_URL,
+        model: MODEL_NAME,
         version: MODEL_VERSION,
         onMetadata: function (m: any) {
           console.log("model loaded");
