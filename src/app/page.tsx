@@ -5,9 +5,11 @@ import Script from "next/script";
 
 import { Roboflow } from "@/components/roboflow";
 import { Button } from "@/components/ui/button";
+import { useStore } from "@/lib/store";
 
 export default function Home() {
   const [showCamera, setShowCamera] = React.useState(false);
+  const { detections } = useStore();
 
   return (
     <>
@@ -18,6 +20,14 @@ export default function Home() {
             {showCamera ? "Hide" : "Show"} camera
           </Button>
           {showCamera && <Roboflow />}
+          <p className="">Detected:</p>
+          <ul className="space-y-2">
+            {detections.map((detection, index) => (
+              <li key={index}>
+                {detection.detClass} ({detection.confidence.toFixed(2)})
+              </li>
+            ))}
+          </ul>
         </div>
 
         <p className="text-center text-sm">© 2024 Anthony Cueva</p>

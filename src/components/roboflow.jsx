@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import Webcam from "react-webcam";
-import { useScreen, useWindowSize } from "usehooks-ts";
+import { useScreen } from "usehooks-ts";
+import { useStore } from "@/lib/store";
 
 const PUBLISHABLE_ROBOFLOW_API_KEY = "rf_BK8M3fRL4HghorGPIF3Xos6TtlB2";
 
@@ -11,10 +12,7 @@ const MODEL_VERSION = "3";
 
 export const Roboflow = () => {
   const { height } = useScreen();
-
-  useEffect(() => {
-    console.log(height);
-  }, [height]);
+  const { addDetection } = useStore();
 
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
@@ -71,12 +69,20 @@ export const Roboflow = () => {
       );
 
       if (maxConfidence > 0.8) {
-        extractFrame();
-      }
-
-      if (maxConfidence > 0.5) {
+        console.log(detections);
         const ctx = canvasRef.current.getContext("2d");
         drawBoxes(detections, ctx);
+      }
+
+      if (maxConfidence > 0.9) {
+        detections.forEach((row) => {
+          if (row.confidence > 0.9) {
+            addDetection({
+              detClass: row.class,
+              confidence: row.confidence,
+            });
+          }
+        });
       }
     }
   };
