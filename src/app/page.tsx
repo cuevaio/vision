@@ -21,7 +21,7 @@ export default function Home() {
           </Button>
           {showCamera && <Roboflow />}
           <p className="">Detected:</p>
-          <ul className="space-y-2">
+          <ul className="space-y-2 font-mono">
             {detections.map((detection, index) => (
               <li key={index}>
                 {detection.detClass} ({detection.confidence.toFixed(2)})

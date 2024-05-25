@@ -222,8 +222,6 @@ export const Roboflow = () => {
           width: (height * 0.5 * 3) / 4,
           facingMode: "environment",
         }}
-        height={height * 0.5}
-        width={(height * 0.5 * 3) / 4}
       />
       <canvas
         ref={canvasRef}

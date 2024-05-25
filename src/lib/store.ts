@@ -11,5 +11,5 @@ type Store = {
 export const useStore = create<Store>()((set) => ({
   detections: [],
   addDetection: (detection) =>
-    set((state) => ({ detections: [...state.detections, detection] })),
+    set((state) => ({ detections: [detection, ...state.detections] })),
 }));
