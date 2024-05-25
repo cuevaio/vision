@@ -2,7 +2,6 @@
 
 import { useRef, useEffect } from "react";
 import Webcam from "react-webcam";
-import { useScreen } from "usehooks-ts";
 import { useStore } from "@/lib/store";
 
 const PUBLISHABLE_ROBOFLOW_API_KEY = "rf_BK8M3fRL4HghorGPIF3Xos6TtlB2";
@@ -11,7 +10,6 @@ const MODEL_NAME = "barranco-movement";
 const MODEL_VERSION = "3";
 
 export const Roboflow = () => {
-  const { height } = useScreen();
   const { addDetection } = useStore();
 
   const webcamRef = useRef(null);
@@ -69,14 +67,10 @@ export const Roboflow = () => {
       );
 
       if (maxConfidence > 0.8) {
-        console.log(detections);
         const ctx = canvasRef.current.getContext("2d");
         drawBoxes(detections, ctx);
-      }
-
-      if (maxConfidence > 0.9) {
         detections.forEach((row) => {
-          if (row.confidence > 0.9) {
+          if (row.confidence > 0.8) {
             addDetection({
               detClass: row.class,
               confidence: row.confidence,
@@ -173,19 +167,16 @@ export const Roboflow = () => {
   };
 
   return (
-    <div className="rounded-lg overflow-hidden border">
+    <>
       <Webcam
         ref={webcamRef}
         muted={true}
         className="absolute mx-auto left-0 right-0 text-center z-10"
-        videoConstraints={{
-          facingMode: "environment",
-        }}
       />
       <canvas
         ref={canvasRef}
         className="absolute mx-auto left-0 right-0 text-center z-20"
       />
-    </div>
+    </>
   );
 };

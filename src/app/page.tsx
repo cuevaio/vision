@@ -35,7 +35,9 @@ export default function Home() {
 
             <Drawer>
               <DrawerTrigger asChild>
-                <Button variant="outline">See detections</Button>
+                <Button variant="outline">
+                  See detections ({detections.length})
+                </Button>
               </DrawerTrigger>
               <DrawerContent>
                 <DrawerHeader>
