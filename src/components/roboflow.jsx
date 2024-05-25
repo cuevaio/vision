@@ -172,62 +172,19 @@ export const Roboflow = () => {
     });
   };
 
-  const extractFrame = () => {
-    if (
-      typeof webcamRef.current !== "undefined" &&
-      webcamRef.current !== null &&
-      webcamRef.current.video.readyState === 4
-    ) {
-      const videoWidth = webcamRef.current.video.videoWidth;
-      const videoHeight = webcamRef.current.video.videoHeight;
-
-      // Create a new canvas with the same dimensions as the video.
-      const canvas = document.createElement("canvas");
-      canvas.width = videoWidth;
-      canvas.height = videoHeight;
-
-      // Draw the current frame from the video onto the canvas.
-      const ctx = canvas.getContext("2d");
-      ctx.drawImage(webcamRef.current.video, 0, 0, videoWidth, videoHeight);
-
-      // Convert the canvas image to Data URL
-      const dataURL = canvas.toDataURL();
-
-      // Now you can use dataURL as the source for an Image element
-      const img = new Image();
-      img.src = dataURL;
-
-      // Or download it as an image file
-      const a = document.createElement("a");
-      a.href = dataURL;
-      a.download = "frame.png";
-      a.click();
-    }
-  };
-
   return (
-    <div
-      className="rounded-lg overflow-hidden border relative"
-      style={{
-        width: (height * 0.5 * 3) / 4,
-        height: height * 0.5,
-      }}
-    >
+    <div className="rounded-lg overflow-hidden border">
       <Webcam
         ref={webcamRef}
         muted={true}
         className="absolute mx-auto left-0 right-0 text-center z-10"
         videoConstraints={{
-          height: height * 0.5,
-          width: (height * 0.5 * 3) / 4,
           facingMode: "environment",
         }}
       />
       <canvas
         ref={canvasRef}
         className="absolute mx-auto left-0 right-0 text-center z-20"
-        width={(height * 0.5 * 3) / 4}
-        height={height}
       />
     </div>
   );

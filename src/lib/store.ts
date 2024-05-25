@@ -11,5 +11,7 @@ type Store = {
 export const useStore = create<Store>()((set) => ({
   detections: [],
   addDetection: (detection) =>
-    set((state) => ({ detections: [detection, ...state.detections] })),
+    set((state) => ({
+      detections: [detection, ...state.detections.slice(0, 9)],
+    })),
 }));
