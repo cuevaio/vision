@@ -214,7 +214,7 @@ export const Roboflow = () => {
         videoConstraints={{
           height: height * 0.5,
           width: (height * 0.5 * 3) / 4,
-          facingMode: "user",
+          facingMode: "environment",
         }}
         height={height * 0.5}
         width={(height * 0.5 * 3) / 4}
